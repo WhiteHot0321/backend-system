@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:13.17
+    container_name: backend_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: backend
+      POSTGRES_USER: backend
+      POSTGRES_PASSWORD: backend
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:7
+    container_name: backend_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7
+    container_name: backend_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  spring-api:
+    build: .
+    container_name: spring-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - mongo
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/backend
+      SPRING_DATASOURCE_USERNAME: backend
+      SPRING_DATASOURCE_PASSWORD: backend
+
+volumes:
+  postgres_data:
+  mongo_data:

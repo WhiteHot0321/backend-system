@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: backend-java
+  
+  # 資料庫設定
+  datasource:
+    url: jdbc:postgresql://localhost:5432/backend
+    username: backend
+    password: backend
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  
+  # 完全禁用這些自動配置
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
+server:
+  port: 8080
+
+# 日誌設定
+logging:
+  level:
+    com.pierce.backend_java: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
