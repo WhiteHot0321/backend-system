@@ -1,18 +1,20 @@
 # Backend System Architecture
 
-This project demonstrates a dockerized backend system implemented in two frameworks:
+This project demonstrates a dockerized backend system implemented with two frameworks:
 
 - Python Flask
 - Java Spring Boot
 
-The system uses a shared infrastructure:
+Infrastructure:
 
 - PostgreSQL
 - MongoDB
 - Redis
 - Docker Compose
 
-## Run
+## Project Structure
 
-```bash
-docker compose up
+backend-system
+├── flask-api
+├── spring-api
+└── docker-compose.yml
